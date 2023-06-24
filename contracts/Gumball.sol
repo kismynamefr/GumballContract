@@ -208,7 +208,7 @@ contract GUMBALL is IERC20, Auth {
 
     uint256 private feeDenominator = 100;
 
-    address payable public marketingWallet = payable(0x16C9D1f42eDbF962CDE013524dF09F7954d59b16);
+    address payable public marketingWallet = payable(0x0000000000000000000000000000000000000000);
 
     IDEXRouter public router;
     address public pair;
@@ -223,10 +223,6 @@ contract GUMBALL is IERC20, Auth {
 
     constructor () Auth(msg.sender) {
         router = IDEXRouter(0x7a250d5630B4cF539739dF2C5dAcb4c659F2488D);
-            
-        WETH = router.WETH();
-        
-        pair = IDEXFactory(router.factory()).createPair(WETH, address(this));
         
         _allowances[address(this)][address(router)] = type(uint256).max;
 
@@ -348,7 +344,11 @@ contract GUMBALL is IERC20, Auth {
 
     function openTrading() external onlyOwner {
         tradingOpen = true;
-    }    
+    }
+    
+    function createPair(address _pair) external onlyOwner {
+        pair = _pair;
+    }
     
     function setIsFeeExempt(address holder, bool exempt) external onlyOwner {
         isFeeExempt[holder] = exempt;
