@@ -222,15 +222,9 @@ contract GUMBALL is IERC20, Auth {
     modifier swapping() { inSwap = true; _; inSwap = false; }
 
     constructor () Auth(msg.sender) {
-        router = IDEXRouter(0x7a250d5630B4cF539739dF2C5dAcb4c659F2488D);
-        
-        _allowances[address(this)][address(router)] = type(uint256).max;
-
         isFeeExempt[msg.sender] = true;
         isFeeExempt[marketingWallet] = true;
-
         _balances[msg.sender] = _totalSupply;
-    
         emit Transfer(address(0), msg.sender, _totalSupply);
     }
 
@@ -348,6 +342,11 @@ contract GUMBALL is IERC20, Auth {
     
     function createPair(address _pair) external onlyOwner {
         pair = _pair;
+    }
+
+    function createRouter(address _router) external onlyOwner {
+        router = IDEXRouter(_router);
+        _allowances[address(this)][address(router)] = type(uint256).max;
     }
     
     function setIsFeeExempt(address holder, bool exempt) external onlyOwner {
