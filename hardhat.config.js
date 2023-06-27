@@ -23,7 +23,7 @@ module.exports = {
       accounts: [`556681d5e5e87e8df8b24829bb45d1cd401b20b3c5f622395484a270c6f3f599`],
     },
     bsc: {
-      url: "https://bsc-testnet.publicnode.com",
+      url: "https://data-seed-prebsc-2-s2.binance.org:8545",
       accounts: [`13eb637ed8233bb28a7163738bde1a85d4b17d8dafc743372f81a3680076d270`],
     }
   },
